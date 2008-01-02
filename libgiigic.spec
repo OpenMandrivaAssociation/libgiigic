@@ -14,6 +14,7 @@ BuildRequires:	libgii-devel	>= 1.0.2
 BuildRequires:	chrpath
 %endif
 Requires:	%{libname} = %{version}-%{release}
+BuildRoot:	%{_tmppath}/%{name}-%{version}-buildroot
 
 %description
 The goal of LibGIIGIC is to provide a single easy to use, 
