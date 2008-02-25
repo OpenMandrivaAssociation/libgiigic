@@ -111,5 +111,3 @@ chrpath -d %{buildroot}%{_libdir}/ggi/gic/recognizer/valuator.so
 %files -n %{staticname}
 %defattr(-,root,root)
 %{_libdir}/*.a
-%{_libdir}/ggi/gic/recognizer/*.a
-
