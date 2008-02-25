@@ -1,10 +1,12 @@
 %define major 1
 %define libname %mklibname giigic %{major}
+%define develname %mklibname giigic -d
+%define staticname %mklibname giigic -d -s
 
 Summary:	Extension to libgii for action/event binding
 Name:		libgiigic
 Version:	1.1.2
-Release:	%mkrel 4
+Release:	%mkrel 5
 License:	BSD
 Group:		System/Libraries
 Url:		http://www.ggi-project.org
@@ -32,21 +34,23 @@ Requires:	%{name} = %{version}-%{release}
 %description -n %{libname}
 Main library for libgiigic.
 
-%package -n %{libname}-devel
+%package -n %{develname}
 Summary:	Header files for libgiigic library
 Group:		Development/C
 Requires:	%{libname} = %{version}-%{release}
 Provides:	%{name}-devel = %{version}-%{release}
 
-%description -n %{libname}-devel
+
+%description -n %{develname}
 Header files for libgiigic library
 
-%package -n %{libname}-static-devel
+%package -n %{staticname}
 Summary:	Static files for libgiigic library
 Group:		Development/C
 Requires:	%{libname}-devel = %{version}-%{release}
+Obsoletes:	%mklibname giigic 1 -d -s
 
-%description -n %{libname}-static-devel
+%description -n %{staticname}
 Static files for libgiigic library.
 
 %prep
@@ -81,32 +85,31 @@ chrpath -d %{buildroot}%{_libdir}/ggi/gic/recognizer/valuator.so
 [ "%{buildroot}" != "/" ] && rm -rf %{buildroot}
 
 %files
-%defattr(644,root,root,755)
+%defattr(-,root,root)
 %doc ChangeLog
 %dir %{_libdir}/ggi/gic
 %dir %{_libdir}/ggi/gic/recognizer
 %config(noreplace) %{_sysconfdir}/ggi/%{name}.conf
-%attr(755,root,root) %{_bindir}/gic2c
-%attr(755,root,root) %{_libdir}/ggi/gic/recognizer/*.so
-%attr(755,root,root) %{_libdir}/ggi/gic/recognizer/*.la
+%{_bindir}/gic2c
+%{_libdir}/ggi/gic/recognizer/*.so
+%{_libdir}/ggi/gic/recognizer/*.la
 %{_mandir}/man3/*
 
 %files -n %{libname}
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/*.so.%{major}*
-%attr(755,root,root) %{_libdir}/libgicaction.so.0*
+%defattr(-,root,root)
+%{_libdir}/*.so.%{major}*
+%{_libdir}/libgicaction.so.0*
 
-%files -n %{libname}-devel
-%defattr(644,root,root,755)
+%files -n %{develname}
+%defattr(-,root,root)
 %doc doc/*.txt
 %{_includedir}/ggi/*.h
-%attr(755,root,root) %{_libdir}/*.la
-%attr(755,root,root) %{_libdir}/*.so
+%{_libdir}/*.la
+%{_libdir}/*.so
 %{_mandir}/man7/*
 
-%files -n %{libname}-static-devel
-%defattr(644,root,root,755)
+%files -n %{staticname}
+%defattr(-,root,root)
 %{_libdir}/*.a
 %{_libdir}/ggi/gic/recognizer/*.a
-
 
