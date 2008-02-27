@@ -6,7 +6,7 @@
 Summary:	Extension to libgii for action/event binding
 Name:		libgiigic
 Version:	1.1.2
-Release:	%mkrel 5
+Release:	%mkrel 6
 License:	BSD
 Group:		System/Libraries
 Url:		http://www.ggi-project.org
@@ -39,7 +39,7 @@ Summary:	Header files for libgiigic library
 Group:		Development/C
 Requires:	%{libname} = %{version}-%{release}
 Provides:	%{name}-devel = %{version}-%{release}
-
+Obsoletes:	%mklibname giigic 1 -d
 
 %description -n %{develname}
 Header files for libgiigic library
