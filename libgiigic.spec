@@ -6,7 +6,7 @@
 Summary:	Extension to libgii for action/event binding
 Name:		libgiigic
 Version:	1.1.2
-Release:	%mkrel 11
+Release:	12
 License:	BSD
 Group:		System/Libraries
 Url:		http://www.ggi-project.org
@@ -16,7 +16,6 @@ BuildRequires:	libgii-devel	>= 1.0.2
 BuildRequires:	chrpath
 %endif
 Requires:	%{libname} = %{version}-%{release}
-BuildRoot:	%{_tmppath}/%{name}-%{version}-buildroot
 
 %description
 The goal of LibGIIGIC is to provide a single easy to use, 
@@ -38,7 +37,7 @@ Main library for libgiigic.
 Summary:	Header files for libgiigic library
 Group:		Development/C
 Requires:	%{libname} = %{version}-%{release}
-Provides:	%{name}-devel = %{version}-%{release}
+Provides:	%{name}-devel = %{EVRD}
 Obsoletes:	%mklibname giigic 1 -d
 
 %description -n %{develname}
@@ -64,7 +63,6 @@ export echo=echo
 %make
 
 %install
-[ "%{buildroot}" != "/" ] && rm -rf %{buildroot}
 export echo=echo
 
 %makeinstall_std
@@ -76,41 +74,79 @@ chrpath -d %{buildroot}%{_libdir}/ggi/gic/recognizer/relmouse.so
 chrpath -d %{buildroot}%{_libdir}/ggi/gic/recognizer/valuator.so
 %endif
 
-%if %mdkversion < 200900
-%post -n %{libname} -p /sbin/ldconfig
-%endif
-
-%if %mdkversion < 200900
-%postun -n %{libname} -p /sbin/ldconfig
-%endif
-
-%clean
-[ "%{buildroot}" != "/" ] && rm -rf %{buildroot}
-
 %files
-%defattr(-,root,root)
 %doc ChangeLog
 %dir %{_libdir}/ggi/gic
 %dir %{_libdir}/ggi/gic/recognizer
 %config(noreplace) %{_sysconfdir}/ggi/%{name}.conf
 %{_bindir}/gic2c
 %{_libdir}/ggi/gic/recognizer/*.so
-%{_libdir}/ggi/gic/recognizer/*.la
 %{_mandir}/man3/*
 
 %files -n %{libname}
-%defattr(-,root,root)
 %{_libdir}/*.so.%{major}*
 %{_libdir}/libgicaction.so.0*
 
 %files -n %{develname}
-%defattr(-,root,root)
 %doc doc/*.txt
 %{_includedir}/ggi/*.h
-%{_libdir}/*.la
 %{_libdir}/*.so
 %{_mandir}/man7/*
 
 %files -n %{staticname}
-%defattr(-,root,root)
 %{_libdir}/*.a
+
+
+%changelog
+* Fri Dec 10 2010 Oden Eriksson <oeriksson@mandriva.com> 1.1.2-11mdv2011.0
++ Revision: 620125
+- the mass rebuild of 2010.0 packages
+
+* Sun Aug 02 2009 Funda Wang <fwang@mandriva.org> 1.1.2-10mdv2010.0
++ Revision: 407504
+- fix requires
+
+* Thu Mar 26 2009 Frederic Crozat <fcrozat@mandriva.com> 1.1.2-9mdv2009.1
++ Revision: 361372
+- Rebuild
+
+  + Thierry Vignaud <tv@mandriva.org>
+    - rebuild
+
+  + Pixel <pixel@mandriva.com>
+    - do not call ldconfig in %%post/%%postun, it is now handled by filetriggers
+
+* Thu Feb 28 2008 Tomasz Pawel Gajc <tpg@mandriva.org> 1.1.2-6mdv2008.1
++ Revision: 175957
+- obsolete older devel library
+
+* Mon Feb 25 2008 Tomasz Pawel Gajc <tpg@mandriva.org> 1.1.2-5mdv2008.1
++ Revision: 174895
+- new devel library policy
+- spec file clean
+
+  + Olivier Blin <oblin@mandriva.com>
+    - restore BuildRoot
+
+  + Thierry Vignaud <tv@mandriva.org>
+    - kill re-definition of %%buildroot on Pixel's request
+
+
+* Sat Feb 24 2007 Tomasz Pawel Gajc <tpg@mandriva.org> 1.1.2-4mdv2007.0
++ Revision: 125250
+- correct a typo
+
+* Fri Feb 23 2007 Tomasz Pawel Gajc <tpg@mandriva.org> 1.1.2-3mdv2007.1
++ Revision: 125204
+- fix dependencies
+- fix dependencies
+
+* Fri Feb 23 2007 Tomasz Pawel Gajc <tpg@mandriva.org> 1.1.2-2mdv2007.1
++ Revision: 125110
+- remove rpath
+
+* Fri Feb 23 2007 Tomasz Pawel Gajc <tpg@mandriva.org> 1.1.2-1mdv2007.1
++ Revision: 125094
+- make it work
+- Import libgiigic
+
