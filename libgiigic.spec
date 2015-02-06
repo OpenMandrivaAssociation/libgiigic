@@ -6,7 +6,7 @@
 Summary:	Extension to libgii for action/event binding
 Name:		libgiigic
 Version:	1.1.2
-Release:	12
+Release:	13
 License:	BSD
 Group:		System/Libraries
 Url:		http://www.ggi-project.org
