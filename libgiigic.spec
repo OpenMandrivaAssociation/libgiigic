@@ -9,7 +9,7 @@ Version:	1.1.2
 Release:	13
 License:	BSD
 Group:		System/Libraries
-Url:		http://www.ggi-project.org
+Url:		https://www.ggi-project.org
 Source0:	http://www.ggi-project.org/ftp/ggi/v2.2/%{name}-%{version}.src.tar.bz2
 BuildRequires:	libgii-devel	>= 1.0.2
 %ifarch x86_64
